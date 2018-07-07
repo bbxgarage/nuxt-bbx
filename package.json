@@ -5,9 +5,9 @@
   "author": "Lucas",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "dev": "cross-env NODE_ENV=development nodemon server/bin/www --watch server",
     "build": "nuxt build",
-    "start": "cross-env NODE_ENV=production node server/index.js",
+    "start": "cross-env NODE_ENV=production node server/bin/www",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
@@ -16,7 +16,24 @@
     "nuxt": "^1.0.0",
     "express": "^4.15.3",
     "vuetify": "^0.17.3",
-    "@nuxtjs/axios": "^5.0.0"
+    "@nuxtjs/axios": "^5.0.0",
+    "await-to-js": "^2.0.1",
+    "bcrypt": "^1.0.3",
+    "bcrypt-promise": "^2.0.0",
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.4",
+    "debug": "~2.6.9",
+    "dotenv": "^4.0.0",
+    "jade": "~1.11.0",
+    "mongoose": "^5.0.1",
+    "mongoose-validator": "^2.0.2",
+    "morgan": "~1.9.0",
+    "parse-error": "^0.2.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.0",
+    "serve-favicon": "~2.4.5",
+    "validator": "^9.2.0"
   },
   "devDependencies": {
     "cross-env": "^5.0.1",
