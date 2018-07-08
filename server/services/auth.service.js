@@ -24,17 +24,18 @@ const getUniqueKeyFromBody = function (body) { // this is so they can send in 3 
 module.exports.getUniqueKeyFromBody = getUniqueKeyFromBody
 
 const createUser = async function (userInfo) {
-  let unique_key, auth_info, err
+  let unique_key, auth_info, err, user;
 
   auth_info = {}
   auth_info.status = 'create'
 
   unique_key = getUniqueKeyFromBody(userInfo)
+  
   if (!unique_key) TE('An email or phone number was not entered.')
 
   if (validator.isEmail(unique_key)) {
-    auth_info.method = 'email'
-    userInfo.email = unique_key
+    auth_info.method = 'email';
+    userInfo.email = unique_key;
 
     [err, user] = await to(User.create(userInfo))
     if (err) TE('user already exists with that email')
@@ -42,8 +43,8 @@ const createUser = async function (userInfo) {
     return user
 
   } else if (validator.isMobilePhone(unique_key, 'any')) { //checks if only phone number was sent
-    auth_info.method = 'phone'
-    userInfo.phone = unique_key
+    auth_info.method = 'phone';
+    userInfo.phone = unique_key;
 
     [err, user] = await to(User.create(userInfo))
     if (err) TE('user already exists with that phone number')
@@ -66,9 +67,10 @@ const authUser = async function (userInfo) { //returns token
 
   if (!userInfo.password) TE('Please enter a password to login')
 
-  let user
+  let user, err;
+
   if (validator.isEmail(unique_key)) {
-    auth_info.method = 'email'
+    auth_info.method = 'email';
 
     [err, user] = await to(User.findOne({
       email: unique_key
@@ -76,11 +78,12 @@ const authUser = async function (userInfo) { //returns token
     if (err) TE(err.message)
 
   } else if (validator.isMobilePhone(unique_key, 'any')) { //checks if only phone number was sent
-    auth_info.method = 'phone'
+    auth_info.method = 'phone';
 
     [err, user] = await to(User.findOne({
       phone: unique_key
     }))
+
     if (err) TE(err.message)
 
   } else {

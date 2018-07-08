@@ -16,7 +16,7 @@ const create = async function (req, res) {
   } else if (!body.password) {
     return ReE(res, 'Please enter a password to register.')
   } else {
-    let err, user
+    let err, user;
 
     [err, user] = await to(authService.createUser(body))
 
@@ -41,9 +41,11 @@ const get = async function (req, res) {
 module.exports.get = get
 
 const update = async function (req, res) {
-  let err, user, data
+  let err, user, data;
+
   user = req.user
   data = req.body
+  
   user.set(data)
 
   [err, user] = await to(user.save())
