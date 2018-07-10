@@ -1,3 +1,4 @@
+const session = require('express-session')
 const {
   User
 } = require('../models')
@@ -91,8 +92,11 @@ const login = async function (req, res) {
   [err, user] = await to(authService.authUser(req.body))
   if (err) return ReE(res, err, 422)
 
+  const token = user.getJWT()
+  req.session.jwt = token
+
   return ReS(res, {
-    token: user.getJWT(),
+    token: token,
     user: user.toWeb()
   })
 }
